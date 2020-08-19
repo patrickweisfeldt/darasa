@@ -1,0 +1,11 @@
+{
+	"targets": {
+		"flashcards-e35e0": {
+			"hosting": {
+				"Flashcards": [
+					"flashcards-e35e0"
+				]
+			}
+		}
+	}
+}

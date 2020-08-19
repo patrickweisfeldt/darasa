@@ -1,0 +1,13 @@
+<p>deck-review works!</p>
+<p>{{ (deck$ | async)?.name }}</p>
+<div *ngIf="!reviewStart">
+	<button type="button" (click)="beginReview()">Begin Review</button>
+</div>
+<div *ngIf="reviewStart && !reviewComplete">
+	<app-card-review [card]="card" (review)="submitAnswer($event)"></app-card-review>
+	<br>
+	<button type="button" (click)="reviewStart = false;">End Review</button>
+</div>
+<div *ngIf="reviewComplete">
+	<p>Review Complete!</p>
+</div>

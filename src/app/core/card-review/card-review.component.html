@@ -1,0 +1,10 @@
+<p>card-review works!</p>
+<p>{{ card.front }}</p>
+<p [hidden]="!revealed">{{ card.back }}</p>
+<div *ngIf="!revealed; else answerOptions">
+	<button type="button" (click)="toggleReveal()">Show Answer</button>
+</div>
+<ng-template #answerOptions>
+	<button type="button" (click)="submitAnswer(true)">Correct</button>
+	<button type="button" (click)="submitAnswer(false)">Incorrect</button>
+</ng-template>

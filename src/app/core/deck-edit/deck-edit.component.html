@@ -1,0 +1,53 @@
+<p>deck-edit works!</p>
+<p>{{ (deck$ | async)?.name }}</p>
+<table>
+	<tr>
+		<th>#</th>
+		<th>Front</th>
+		<th>Back</th>
+		<th>Tags</th>
+		<th>Date Created</th>
+		<th>Next Review</th>
+		<th>Last Reviewed</th>
+		<th>Session Reviews</th>
+		<th>Total Reviews</th>
+	</tr>
+	<ng-container *ngFor="let card of (deck$ | async)?.cards as cards; index as i">
+		<ng-container *ngIf="editing === card; else default">
+			<tr [formGroup]="cardDataForm">
+				<td>{{ i + 1 }}</td>
+				<td>
+					<input type="text" id="front" formControlName="front">
+				</td>
+				<td>
+					<input type="text" id="back" formControlName="back">
+				</td>
+				<td>
+					<input type="text" id="tags" formControlName="tags">
+				</td>
+				<td>{{ card.data.dateCreated.toLocaleDateString() }}</td>
+				<td>{{ card.data.nextReview.toLocaleDateString() }}</td>
+				<td>{{ card.data.lastReview.toLocaleDateString() }}</td>
+				<td>{{ card.data.sessionReviews }}</td>
+				<td>{{ card.data.totalReviews }}</td>
+				<td><button type="button" (click)="save(card)">Save</button></td>
+				<td><button type="button" (click)="delete(card)">Delete</button></td>
+			</tr>
+		</ng-container>
+		<ng-template #default>
+			<tr>
+				<td>{{ i + 1 }}</td>
+				<td>{{ card.front }}</td>
+				<td>{{ card.back }}</td>
+				<td>{{ card.tags.join(', ') }}</td>
+				<td>{{ card.data.dateCreated.toLocaleDateString() }}</td>
+				<td>{{ card.data.nextReview.toLocaleDateString() }}</td>
+				<td>{{ card.data.lastReview.toLocaleDateString() }}</td>
+				<td>{{ card.data.sessionReviews }}</td>
+				<td>{{ card.data.totalReviews }}</td>
+				<td><button type="button" (click)="edit(card)">Edit</button></td>
+				<td><button type="button" (click)="delete(card)">Delete</button></td>
+			</tr>
+		</ng-template>
+	</ng-container>
+</table>

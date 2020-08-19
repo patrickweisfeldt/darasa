@@ -1,0 +1,14 @@
+<p>dashboard works!</p>
+<ul>
+	<li *ngFor="let deck of deckList$ | async">
+		<a [routerLink]="['deck', deck.name]">{{ deck.name }}</a>
+		<button type="button" [routerLink]="['deck', deck.name, 'add']">Add Cards</button>
+		<button type="button" (click)="delete(deck)">Delete</button>
+	</li>
+</ul>
+<label for="name">
+	Deck Name: <input type="text" id="name" [formControl]="newDeckName">
+</label>
+<button type="button" (click)="add()" [disabled]="!newDeckName.valid">
+	Create New Deck
+</button>

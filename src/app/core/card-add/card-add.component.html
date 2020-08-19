@@ -1,0 +1,17 @@
+<p>card-add works!</p>
+<p>{{ (deck$ | async)?.name }}</p>
+<form [formGroup]="cardForm" (ngSubmit)="addCard()">
+	<label for="front">
+		Front: <input type="text" id="front" formControlName="front">
+	</label>
+	<br>
+	<label for="back">
+		Back: <input type="text" id="back" formControlName="back">
+	</label>
+	<br>
+	<label for="tags">
+		Tags (optional): <input type="text" id="tags" formControlName="tags">
+	</label>
+	<br>
+	<button type="submit" [disabled]="!cardForm.valid">Add Card</button>
+</form>
