@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
@@ -21,6 +22,7 @@ import { TokenInterceptorService } from './auth/token-interceptor.service';
 		AppRoutingModule,
 		AuthModule,
 		BrowserModule,
+		BrowserAnimationsModule,
 		CoreModule,
 		HttpClientModule
 	],
