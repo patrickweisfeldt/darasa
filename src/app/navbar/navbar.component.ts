@@ -11,8 +11,14 @@ export class NavbarComponent {
 
 	constructor(private auth: AuthService) { }
 
+	isCollapsed: boolean = true;
+
 	logout(): void {
 		this.auth.logout();
+	}
+
+	toggleCollapse(): void {
+		this.isCollapsed = !this.isCollapsed;
 	}
 
 }
