@@ -43,7 +43,8 @@ export class AuthService {
 		console.log('Success :)', res);
 		localStorage.setItem('token', res.token);
 		this.isLoggedIn = true;
-		this.router.navigate(['/dashboard']);
+		this.router.navigate([this.redirectUrl || '/dashboard']);
+		this.redirectUrl = null;
 	}
 
 	register(user: object): void {
