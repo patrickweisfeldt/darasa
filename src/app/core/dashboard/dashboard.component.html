@@ -1,14 +1,42 @@
-<p>dashboard works!</p>
-<ul>
-	<li *ngFor="let deck of deckList$ | async">
-		<a [routerLink]="['deck', deck.name]">{{ deck.name }}</a>
-		<button type="button" [routerLink]="['deck', deck.name, 'add']">Add Cards</button>
-		<button type="button" (click)="delete(deck)">Delete</button>
-	</li>
-</ul>
-<label for="name">
-	Deck Name: <input type="text" id="name" [formControl]="newDeckName">
-</label>
-<button type="button" (click)="add()" [disabled]="!newDeckName.valid">
-	Create New Deck
-</button>
+<div class="container-fluid">
+	<div class="row justify-content-center">
+		<div *ngFor="let deck of deckList$ | async" class="deck-card my-3 col-12 col-md-6 col-lg-4">
+			<div class="card shadow h-100">
+				<div class="card-body">
+					<h3 class="card-title">{{ deck.name }}</h3>
+					<p class="card-text text-muted">Total Cards: {{ deck.cards.length }}</p>
+					<p class="card-text text-muted">Cards to Review: {{ deck.cards.length }}</p>
+					<div class="container-fluid">
+						<div class="row justify-content-around align-content-around">
+							<button class="btn btn-outline-primary my-1 col-5"
+											(click)="openNewCardModal(deck)">
+								Add Cards
+							</button>
+							<button class="btn btn-outline-primary my-1 col-5"
+											[routerLink]="['deck', deck.name, 'edit']">
+								Edit Cards
+							</button>
+							<button class="btn btn-outline-primary my-1 col-5"
+											[routerLink]="['deck', deck.name, 'review']">
+								Review
+							</button>
+							<button class="btn btn-outline-primary my-1 col-5"
+											(click)="deleteDeck(deck)">
+								Delete
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="deck-card my-3 col-12 col-md-6 col-lg-4">
+			<div class="card shadow h-100">
+				<div class="card-body new-deck-card" (click)="openNewDeckModal()">
+					<div class="row h-100 justify-content-around align-content-around">
+						<img src="../../../assets/plus_small.png" alt="Create New Deck">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

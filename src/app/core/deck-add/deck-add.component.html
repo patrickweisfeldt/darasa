@@ -1,0 +1,16 @@
+<div class="container-fluid p-4">
+	<form [formGroup]="newDeckForm" (ngSubmit)="submit()">
+		<p>Enter New Deck Name:</p>
+		<input type="text" id="newDeckName" formControlName="name"
+					class="form-control">
+		<div class="row justify-content-center mt-4">
+			<button class="btn btn-primary btn-sm mx-2"
+							type="submit" [disabled]="!newDeckForm.valid">
+				Add Deck
+			</button>
+			<button class="btn btn-secondary btn-sm mx-2" (click)="close()">
+				Cancel
+			</button>
+		</div>
+	</form>
+</div>

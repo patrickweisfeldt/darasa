@@ -1,0 +1,8 @@
+.deck-card {
+	height: 260px;
+	max-width: 500px;
+}
+.new-deck-card:hover {
+	background-color: #E9ECEF;
+	cursor: pointer;
+}

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+
 import { ActiveDeckService } from '../active-deck.service';
+import { CardEditComponent } from '../card-edit/card-edit.component';
 import { Deck, Card } from '../../models';
 
 @Component({
@@ -13,48 +15,38 @@ import { Deck, Card } from '../../models';
 })
 export class DeckEditComponent implements OnInit {
 
-	constructor(private activeDeck: ActiveDeckService) { }
-
-	cardDataForm: FormGroup = new FormGroup({
-		front: new FormControl('', Validators.required),
-		back: new FormControl('', Validators.required),
-		tags: new FormControl('')
-	});
+	constructor(
+		private activeDeck: ActiveDeckService,
+		private modal: BsModalService
+	) { }
 
 	deck$: Observable<Deck>;
 
-	editing: Card = null;
+	modalRef: BsModalRef;
 
 	delete(card: Card): void {
 		this.activeDeck.deleteCard(card);
-	}
-
-	edit(card: Card): void {
-		this.editing = card;
-		this.cardDataForm.setValue({
-			front: card.front,
-			back: card.back,
-			tags: card.tags.join(', ')
-		});
 	}
 
 	ngOnInit(): void {
 		this.deck$ = this.activeDeck.deck$;
 	}
 
-	save(card: Card): void {
-		if (!this.cardDataForm.pristine) {
-			card.front = this.cardDataForm.value.front;
-			card.back  = this.cardDataForm.value.back;
-			card.tags  = this.cardDataForm.value.tags.split(',')
-				.map((tag: string) => tag.trim());
+	openEditCardModal(card: Card): void {
+		const initialState = {
+			cardData: {
+				front: card.front,
+				back:  card.back,
+				tags:  card.tags
+			}
+		};
+		this.modalRef = this.modal.show(CardEditComponent, { initialState });
+		this.modalRef.content.event.subscribe((cardData: any) => {
+			card.front = cardData.front;
+			card.back  = cardData.back;
+			card.tags  = cardData.tags;
 			this.activeDeck.editCard(card);
-		}
-		this.editing = null;
-	}
-
-	test(card: Card): void {
-		console.log(card);
+		});
 	}
 
 }

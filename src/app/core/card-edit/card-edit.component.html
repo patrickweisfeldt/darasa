@@ -1,5 +1,5 @@
 <div class="container-fluid p-4">
-	<form [formGroup]="cardForm" (ngSubmit)="addCard()">
+	<form [formGroup]="cardForm" (ngSubmit)="saveCard()">
 		<div class="form-group row">
 			<label for="front" class="col-sm-3 col-form-label">Front:</label>
 			<div class="col-sm-9">
@@ -22,11 +22,11 @@
 		<div class="form-group row">
 			<button class="btn btn-primary my-3 my-sm-0 col-sm-4 offset-sm-1"
 							type="submit" [disabled]="!cardForm.valid">
-				Add Card
+				Save
 			</button>
 			<button class="btn btn-secondary col-sm-4 offset-sm-2"
 							type="button" (click)="close()">
-				Done
+				Cancel
 			</button>
 		</div>
 	</form>

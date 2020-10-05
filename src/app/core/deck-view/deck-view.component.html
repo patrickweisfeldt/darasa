@@ -1,8 +1,7 @@
-<p>deck-view works!</p>
 <p *ngIf="deck$ | async as deck">Deck: {{ deck.name }}</p>
 <button type="button" routerLink="review">Review</button>
 <br>
-<button type="button" routerLink="add">Add Cards</button>
+<button type="button" (click)="openNewCardModal()">Add Cards</button>
 <br>
 <button type="button" routerLink="edit">Edit Cards</button>
 <p>Fill in with deck data</p>

@@ -25,7 +25,7 @@ import { TokenInterceptorService } from './auth/token-interceptor.service';
 		AuthModule,
 		BrowserModule,
 		BrowserAnimationsModule,
-		CollapseModule,
+		CollapseModule.forRoot(),
 		CoreModule,
 		HttpClientModule
 	],

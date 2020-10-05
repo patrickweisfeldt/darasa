@@ -1,19 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { Observable } from 'rxjs';
-
-import { ActiveDeckService } from '../active-deck.service';
-import { Deck } from '../../models';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
 	selector: 'app-card-add',
 	templateUrl: './card-add.component.html',
 	styleUrls: ['./card-add.component.css']
 })
-export class CardAddComponent implements OnInit {
+export class CardAddComponent {
 
-	constructor(private activeDeck: ActiveDeckService) { }
+	constructor(private modalRef: BsModalRef) { }
 
 	cardForm = new FormGroup({
 		front: new FormControl('', Validators.required),
@@ -21,17 +18,17 @@ export class CardAddComponent implements OnInit {
 		tags: new FormControl('')
 	});
 
-	deck$: Observable<Deck>;
+	event: EventEmitter<any> = new EventEmitter();
 
 	addCard(): void {
 		const cardData = this.cardForm.value;
 		cardData.tags = cardData.tags.split(',').map((tag: string) => tag.trim());
-		this.activeDeck.addCard(cardData);
+		this.event.emit(cardData);
 		this.cardForm.reset();
 	}
 
-	ngOnInit(): void {
-		this.deck$ = this.activeDeck.deck$;
+	close(): void {
+		this.modalRef.hide();
 	}
 
 }
