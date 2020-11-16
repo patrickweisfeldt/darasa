@@ -3,6 +3,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -25,6 +26,7 @@ import { TokenInterceptorService } from './auth/token-interceptor.service';
 		AuthModule,
 		BrowserModule,
 		BrowserAnimationsModule,
+		BsDropdownModule.forRoot(),
 		CollapseModule.forRoot(),
 		CoreModule,
 		HttpClientModule

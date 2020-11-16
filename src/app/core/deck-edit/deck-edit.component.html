@@ -4,12 +4,11 @@
 			<th scope="col">#</th>
 			<th scope="col">Front</th>
 			<th scope="col">Back</th>
-			<th scope="col">Tags</th>
-			<th scope="col">Date Created</th>
-			<th scope="col">Next Review</th>
-			<th scope="col">Last Reviewed</th>
-			<th scope="col">Edit</th>
-			<th scope="col">Delete</th>
+			<th scope="col" class="d-none d-md-table-cell">Tags</th>
+			<th scope="col" class="d-none d-lg-table-cell">Date Created</th>
+			<th scope="col" class="d-none d-lg-table-cell">Next Review</th>
+			<th scope="col" class="d-none d-lg-table-cell">Last Reviewed</th>
+			<th scope="col">Details</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -17,15 +16,12 @@
 			<th scope="row">{{ i + 1 }}</th>
 			<td>{{ card.front }}</td>
 			<td>{{ card.back }}</td>
-			<td>{{ card.tags.join(', ') }}</td>
-			<td>{{ card.data.dateCreated.toLocaleDateString() }}</td>
-			<td>{{ card.data.nextReview.toLocaleDateString() }}</td>
-			<td>{{ card.data.lastReview.toLocaleDateString() }}</td>
+			<td class="d-none d-md-table-cell">{{ card.tags.join(', ') }}</td>
+			<td class="d-none d-lg-table-cell">{{ card.data.dateCreated.toLocaleDateString() }}</td>
+			<td class="d-none d-lg-table-cell">{{ card.data.nextReview.toLocaleDateString() }}</td>
+			<td class="d-none d-lg-table-cell">{{ card.data.lastReview.toLocaleDateString() }}</td>
 			<td>
-				<button type="button" class="btn btn-secondary" (click)="openEditCardModal(card)">Edit</button>
-			</td>
-			<td>
-				<button type="button" class="btn btn-secondary" (click)="delete(card)">Delete</button>
+				<button type="button" class="btn btn-secondary" (click)="openEditCardModal(card)">Details</button>
 			</td>
 		</tr>
 	</tbody>

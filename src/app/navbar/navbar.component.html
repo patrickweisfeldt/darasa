@@ -2,41 +2,52 @@
 	<div class="container max-size">
 		<a class="navbar-brand" routerLink="/">Darasa</a>
 		<button class="navbar-toggler" type="button" (click)="toggleCollapse()"
-						[attr.aria-expanded]="!isCollapsed" aria-controls="navbarCollapse">
+						[attr.aria-expanded]="!isCollapsed" aria-controls="navbar-collapse">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div id="navbarCollapse" class="navbar-collapse justify-content-end"
+		<div id="navbar-collapse" class="navbar-collapse justify-content-end"
 				 [collapse]="isCollapsed" [isAnimated]="true">
 			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" routerLink="/dashboard"
-						 routerLinkActive="active">
-						Dashboard
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" routerLink="/abc"
-						 routerLinkActive="active">
-						 Deck List
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" routerLink="/login"
-						 routerLinkActive="active">
-						Sign In
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" routerLink="/register"
-						 routerLinkActive="active">
-						Register
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" (click)="logout()">
-						Sign Out
-					</a>
-				</li>
+				<ng-container *ngIf="(isLoggedIn$ | async); else isLoggedOut">
+					<li class="nav-item">
+						<a class="nav-link" routerLink="/dashboard" routerLinkActive="active">
+							Dashboard
+						</a>
+					</li>
+					<li class="nav-item">
+						<div class="btn-group" [isAnimated]="true" dropdown>
+							<a class="nav-link dropdown-toggle" id="navbar-dropdown-toggle"
+								 aria-controls="navbar-dropdown" data-toggle="dropdown" dropdownToggle>
+								Deck List
+							</a>
+							<ul class="dropdown-menu" id="navbar-dropdown" role="menu"
+									aria-labelledby="navbar-dropdown-toggle" *dropdownMenu>
+								<li *ngFor="let deck of deckList$ | async" role="menuitem">
+									<a class="dropdown-item" [routerLink]="['/dashboard', 'deck', deck.name]">
+										{{ deck.name }}
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" (click)="logout()">
+							Sign Out
+						</a>
+					</li>
+				</ng-container>
+				<ng-template #isLoggedOut>
+					<li class="nav-item">
+						<a class="nav-link" routerLink="/login" routerLinkActive="active">
+							Sign In
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" routerLink="/register" routerLinkActive="active">
+							Register
+						</a>
+					</li>
+				</ng-template>
 			</ul>
 		</div>
 	</div>

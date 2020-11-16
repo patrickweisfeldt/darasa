@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router,
 	RouterStateSnapshot, UrlTree } from '@angular/router';
+
 import { Observable } from 'rxjs';
 
 import { AuthService } from './auth.service';
@@ -26,8 +27,9 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 		return this.canActivate(route, state);
 	}
 
-	checkLogin(url: string): boolean {
-		if (this.auth.isLoggedIn) {
+	async checkLogin(url: string): Promise<boolean> {
+		const loggedIn: boolean = await this.auth.isLoggedInPromise;
+		if (loggedIn) {
 			return true;
 		}
 		this.auth.redirectUrl = url;

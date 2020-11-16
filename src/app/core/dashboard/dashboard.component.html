@@ -3,10 +3,10 @@
 		<div *ngFor="let deck of deckList$ | async" class="deck-card my-3 col-12 col-md-6 col-lg-4">
 			<div class="card shadow h-100">
 				<div class="card-body">
-					<h3 class="card-title">{{ deck.name }}</h3>
-					<p class="card-text text-muted">Total Cards: {{ deck.cards.length }}</p>
-					<p class="card-text text-muted">Cards to Review: {{ deck.cards.length }}</p>
-					<div class="container-fluid">
+					<h3 class="card-title text-center">{{ deck.name }}</h3>
+					<div class="card-text text-muted">Total Cards: {{ deck.cards.length }}</div>
+					<div class="card-text text-muted my-2">Cards to Review: {{ deck.cards.length }}</div>
+					<div class="container-fluid mt-3">
 						<div class="row justify-content-around align-content-around">
 							<button class="btn btn-outline-primary my-1 col-5"
 											(click)="openNewCardModal(deck)">

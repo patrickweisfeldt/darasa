@@ -1,10 +1,20 @@
-<p>card-review works!</p>
-<p>{{ card.front }}</p>
-<p [hidden]="!revealed">{{ card.back }}</p>
+<div class="card-text d-flex justify-content-center align-items-center">
+	<div class="text-center h-50">{{ card.front }}</div>
+</div>
+<hr class="my-2">
+<div class="card-text d-flex justify-content-center align-items-center mb-4">
+	<div class="text-center h-50" [hidden]="!revealed">{{ card.back }}</div>
+</div>
 <div *ngIf="!revealed; else answerOptions">
-	<button type="button" (click)="toggleReveal()">Show Answer</button>
+	<button type="button" class="btn btn-primary" (click)="toggleReveal()">
+		Show Answer
+	</button>
 </div>
 <ng-template #answerOptions>
-	<button type="button" (click)="submitAnswer(true)">Correct</button>
-	<button type="button" (click)="submitAnswer(false)">Incorrect</button>
+	<button type="button" class="btn btn-primary mx-2" (click)="submitAnswer(true)">
+		Correct
+	</button>
+	<button type="button" class="btn btn-primary mx-2" (click)="submitAnswer(false)">
+		Incorrect
+	</button>
 </ng-template>
