@@ -1,21 +1,25 @@
-<h2 class="text-center mb-4">Review: {{ (deck$ | async)?.name }}</h2>
-<div class="jumbotron">
-	<div *ngIf="!reviewStart" class="d-flex justify-content-center">
-		<button type="button" class="btn btn-primary" (click)="beginReview()">
-			Begin Review
-		</button>
-	</div>
-	<ng-container *ngIf="reviewStart && !reviewComplete">
-		<div class="d-flex justify-content-center">
-			<app-card-review [card]="card" (review)="submitAnswer($event)"></app-card-review>
-		</div>
-		<div class="d-flex justify-content-center mt-4">
-			<button type="button" class="btn btn-danger" (click)="reviewStart = false;">
-				End Review
+<ng-container *ngIf="(deck$ | async) as deck">
+	<h2 class="text-center mb-4">Review: {{ deck.name }}</h2>
+	<div class="jumbotron">
+		<div *ngIf="!deck.reviewState.active; else active" class="d-flex justify-content-center">
+			<button type="button" class="btn btn-primary" (click)="deck.beginReview()">
+				Begin Review
 			</button>
 		</div>
-	</ng-container>
-	<div *ngIf="reviewComplete">
-		<p>Review Complete!</p>
+		<ng-template #active>
+			<div class="d-flex justify-content-center">
+				<app-card-review [card]="deck.reviewState.activeCard"
+												 (review)="deck.reviewState.answered($event)">
+				</app-card-review>
+			</div>
+			<div class="d-flex justify-content-center mt-4">
+				<button type="button" class="btn btn-danger" (click)="deck.reviewState.active = false;">
+					End Review
+				</button>
+			</div>
+		</ng-template>
+		<div *ngIf="deck.reviewState.complete">
+			Review Complete!
+		</div>
 	</div>
-</div>
+</ng-container>

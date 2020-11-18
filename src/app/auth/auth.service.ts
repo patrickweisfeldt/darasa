@@ -1,73 +1,47 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { BehaviorSubject, Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { User } from 'firebase';
 
-import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { first, map } from 'rxjs/operators';
 
-
-const baseUrl = environment.apiUrl;
-const urls = {
-	login: `${baseUrl}/login`,
-	register: `${baseUrl}/register`
-};
-const httpOptions = {
-	headers: new HttpHeaders({
-		'Content-Type': 'application/json'
-	})
-};
 
 @Injectable({
 	providedIn: 'root'
 })
 export class AuthService {
 
-	constructor(private http: HttpClient, private router: Router) { }
+	constructor(
+		private db: AngularFirestore,
+		private fireAuth: AngularFireAuth,
+		private router: Router
+	) { }
 
-	private readonly _isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject(!!localStorage.getItem('token'));
-
-	private get isLoggedIn(): boolean {
-		return this._isLoggedIn.getValue();
+	get loggedIn(): Promise<boolean> {
+		return this.user$.pipe( first(), map(user => !!user) ).toPromise();
 	}
 
-	private set isLoggedIn(value) {
-		this._isLoggedIn.next(value);
+	user$: Observable<User>;
+
+	register(formData: any): void {
+		this.fireAuth.createUserWithEmailAndPassword(formData.email, formData.password)
+			.then(user => {
+				this.db.collection('users').doc(user.user.uid).set({});
+				this.router.navigate(['/campaigns']);
+			});
 	}
 
-	readonly isLoggedIn$: Observable<boolean> = this._isLoggedIn.asObservable();
-
-	isLoggedInPromise: Promise<boolean> = this.isLoggedIn$.pipe( first() ).toPromise();
-
-	redirectUrl: string;
-
-	login(user: object): void {
-		this.http.post<any>(urls.login, user, httpOptions).subscribe(
-			res => this.onSuccess(res),
-			err => console.error('Error :(', err)
-		);
+	signIn(formData: any): void {
+		this.fireAuth.signInWithEmailAndPassword(formData.email, formData.password)
+			.then(() => this.router.navigate(['/campaigns']));
 	}
 
-	logout(): void {
-		localStorage.removeItem('token');
-		this.isLoggedIn = false;
-		this.router.navigate(['/login']);
-	}
-
-	onSuccess(res: any): void {
-		console.log('Success :)', res);
-		localStorage.setItem('token', res.token);
-		this.isLoggedIn = true;
-		this.router.navigate([this.redirectUrl || '/dashboard']);
-		this.redirectUrl = null;
-	}
-
-	register(user: object): void {
-		this.http.post<any>(urls.register, user, httpOptions).subscribe(
-			res => this.onSuccess(res),
-			err => console.error('Error :(', err)
-		);
+	signOut(): void {
+		this.fireAuth.signOut()
+			.then(() => this.router.navigate(['/login']));
 	}
 
 }

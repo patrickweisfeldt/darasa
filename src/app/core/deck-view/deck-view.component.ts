@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
+import { pluck } from 'rxjs/operators';
 
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
-import { ActiveDeckService } from '../active-deck.service';
-import { Deck } from '../../models';
 import { CardAddComponent } from '../card-add/card-add.component';
+import { Card, CardInterface } from '../../models/card';
+import { Deck } from '../../models/deck';
 
 @Component({
 	selector: 'app-deck-view',
@@ -16,8 +18,8 @@ import { CardAddComponent } from '../card-add/card-add.component';
 export class DeckViewComponent implements OnInit {
 
 	constructor(
-		private activeDeck: ActiveDeckService,
-		private modal: BsModalService
+		private modal: BsModalService,
+		private route: ActivatedRoute
 	) { }
 
 	deck$: Observable<Deck>;
@@ -25,14 +27,15 @@ export class DeckViewComponent implements OnInit {
 	modalRef: BsModalRef;
 
 	ngOnInit(): void {
-		this.deck$ = this.activeDeck.deck$;
+		this.deck$ = this.route.data.pipe( pluck('deck') );
 	}
 
-	openNewCardModal(): void {
+	openNewCardModal(deck: Deck): void {
 		this.modalRef = this.modal.show(CardAddComponent);
-		this.modalRef.content.event.subscribe(
-			(cardData: any) => this.activeDeck.addCard(cardData)
-		);
+		this.modalRef.content.event.subscribe((data: CardInterface) => {
+			const card: Card = new Card({ ...data });
+			deck.addCard(card.toPlainObject());
+		});
 	}
 
 }

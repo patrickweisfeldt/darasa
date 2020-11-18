@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
+import { CardInterface } from '../../models/card';
+
 @Component({
 	selector: 'app-card-add',
 	templateUrl: './card-add.component.html',
@@ -18,7 +20,7 @@ export class CardAddComponent {
 		tags: new FormControl('')
 	});
 
-	event: EventEmitter<any> = new EventEmitter();
+	event: EventEmitter<CardInterface> = new EventEmitter();
 
 	addCard(): void {
 		const cardData = this.cardForm.value;

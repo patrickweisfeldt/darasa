@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
+import { pluck } from 'rxjs/operators';
 
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
-import { ActiveDeckService } from '../active-deck.service';
 import { CardEditComponent } from '../card-edit/card-edit.component';
-import { Deck, Card } from '../../models';
+import { Card, CardInterface } from '../../models/card';
+import { Deck } from '../../models/deck';
 
 @Component({
 	selector: 'app-deck-edit',
@@ -16,8 +18,8 @@ import { Deck, Card } from '../../models';
 export class DeckEditComponent implements OnInit {
 
 	constructor(
-		private activeDeck: ActiveDeckService,
-		private modal: BsModalService
+		private modal: BsModalService,
+		private route: ActivatedRoute
 	) { }
 
 	deck$: Observable<Deck>;
@@ -25,11 +27,11 @@ export class DeckEditComponent implements OnInit {
 	modalRef: BsModalRef;
 
 	delete(card: Card): void {
-		this.activeDeck.deleteCard(card);
+		card.deleteFromDB();
 	}
 
 	ngOnInit(): void {
-		this.deck$ = this.activeDeck.deck$;
+		this.deck$ = this.route.data.pipe( pluck('deck') );
 	}
 
 	openEditCardModal(card: Card): void {
@@ -41,11 +43,11 @@ export class DeckEditComponent implements OnInit {
 			}
 		};
 		this.modalRef = this.modal.show(CardEditComponent, { initialState });
-		this.modalRef.content.event.subscribe((cardData: any) => {
-			card.front = cardData.front;
-			card.back  = cardData.back;
-			card.tags  = cardData.tags;
-			this.activeDeck.editCard(card);
+		this.modalRef.content.event.subscribe((data: CardInterface) => {
+			card.front = data.front;
+			card.back  = data.back;
+			card.tags  = data.tags;
+			card.updateDB();
 		});
 	}
 

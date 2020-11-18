@@ -12,6 +12,7 @@ import { CoreComponent } from './core/core.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DeckComponent } from './deck/deck.component';
 import { DeckAddComponent } from './deck-add/deck-add.component';
+import { DeckDeleteComponent } from './deck-delete/deck-delete.component';
 import { DeckEditComponent } from './deck-edit/deck-edit.component';
 import { DeckReviewComponent } from './deck-review/deck-review.component';
 import { DeckViewComponent } from './deck-view/deck-view.component';
@@ -26,6 +27,7 @@ import { DeckViewComponent } from './deck-view/deck-view.component';
 		DashboardComponent,
 		DeckComponent,
 		DeckAddComponent,
+		DeckDeleteComponent,
 		DeckEditComponent,
 		DeckReviewComponent,
 		DeckViewComponent

@@ -1,7 +1,14 @@
-<p *ngIf="deck$ | async as deck">Deck: {{ deck.name }}</p>
-<button type="button" routerLink="review">Review</button>
-<br>
-<button type="button" (click)="openNewCardModal()">Add Cards</button>
-<br>
-<button type="button" routerLink="edit">Edit Cards</button>
-<p>Fill in with deck data</p>
+<ng-container *ngIf="deck$ | async as deck">
+	<div>Deck: {{ deck.name }}</div>
+	<div class="btn-group d-flex justify-content-around">
+		<button type="button" class="btn btn-primary" routerLink="review">
+			Review
+		</button>
+		<button type="button" class="btn btn-primary" (click)="openNewCardModal()">
+			Add Cards
+		</button>
+		<button type="button" class="btn btn-primary" routerLink="edit">
+			Edit Cards
+		</button>
+	</div>
+</ng-container>

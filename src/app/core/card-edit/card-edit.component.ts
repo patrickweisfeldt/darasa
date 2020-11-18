@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
-import { Card } from '../../models';
+import { CardInterface } from '../../models/card';
 
 @Component({
 	selector: 'app-card-edit',
@@ -14,7 +14,7 @@ export class CardEditComponent implements OnInit {
 
 	constructor(private modalRef: BsModalRef) { }
 
-	cardData: Pick<Card, 'front' | 'back' | 'tags'>;
+	cardData: CardInterface;
 
 	cardForm = new FormGroup({
 		front: new FormControl('', Validators.required),

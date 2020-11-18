@@ -8,7 +8,7 @@
 		<div id="navbar-collapse" class="navbar-collapse justify-content-end"
 				 [collapse]="isCollapsed" [isAnimated]="true">
 			<ul class="navbar-nav">
-				<ng-container *ngIf="(isLoggedIn$ | async); else isLoggedOut">
+				<ng-container *ngIf="(user$ | async); else isLoggedOut">
 					<li class="nav-item">
 						<a class="nav-link" routerLink="/dashboard" routerLinkActive="active">
 							Dashboard
@@ -22,7 +22,7 @@
 							</a>
 							<ul class="dropdown-menu" id="navbar-dropdown" role="menu"
 									aria-labelledby="navbar-dropdown-toggle" *dropdownMenu>
-								<li *ngFor="let deck of deckList$ | async" role="menuitem">
+								<li *ngFor="let deck of decks$ | async" role="menuitem">
 									<a class="dropdown-item" [routerLink]="['/dashboard', 'deck', deck.name]">
 										{{ deck.name }}
 									</a>
@@ -31,7 +31,7 @@
 						</div>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" (click)="logout()">
+						<a class="nav-link" (click)="signOut()">
 							Sign Out
 						</a>
 					</li>

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Card } from '../../models';
+import { Card } from '../../models/card';
 
 @Component({
 	selector: 'app-card-review',
@@ -18,6 +18,7 @@ export class CardReviewComponent {
 	revealed: boolean = false;
 
 	submitAnswer(correct: boolean): void {
+		this.card.answered(correct);
 		this.review.emit(correct);
 		this.revealed = false;
 	}
