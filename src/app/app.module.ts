@@ -17,8 +17,6 @@ import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 
-import { TokenInterceptorService } from './auth/token-interceptor.service';
-
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyCe_IlFdmKAi703ux7Cdy3QuO4HjrLHxUY',

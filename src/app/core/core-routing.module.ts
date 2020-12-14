@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from '../auth/auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DeckComponent } from './deck/deck.component';
 import { DeckEditComponent } from './deck-edit/deck-edit.component';
 import { DeckReviewComponent } from './deck-review/deck-review.component';
 import { DeckViewComponent } from './deck-view/deck-view.component';
@@ -18,14 +19,15 @@ const coreRoutes: Routes = [
 	},
 	{
 		path: 'deck/:name',
-		component: DeckViewComponent,
+		component: DeckComponent,
 		canActivate: [AuthGuard],
 		resolve: { deck: AuthGuard },
 		data: { requireLogin: true, redirectTo: '/login' },
 		children: [
 			{ path: 'edit', component: DeckEditComponent },
 			{ path: 'review', component: DeckReviewComponent },
-			{ path: '**', redirectTo: '' }
+			{ path: '', component: DeckViewComponent },
+			{ path: '**', redirectTo: 'deck/:name' }
 		]
 	}
 ];

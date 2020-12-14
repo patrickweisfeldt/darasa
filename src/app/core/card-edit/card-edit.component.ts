@@ -22,7 +22,9 @@ export class CardEditComponent implements OnInit {
 		tags: new FormControl('')
 	});
 
-	event: EventEmitter<any> = new EventEmitter();
+	cardEdit: EventEmitter<any> = new EventEmitter();
+
+	delete: EventEmitter<null> = new EventEmitter();
 
 	close(): void {
 		this.modalRef.hide();
@@ -41,7 +43,7 @@ export class CardEditComponent implements OnInit {
 		if (!this.cardForm.pristine) {
 			const cardData = this.cardForm.value;
 			cardData.tags = cardData.tags.split(',').map((tag: string) => tag.trim());
-			this.event.emit(cardData);
+			this.cardEdit.emit(cardData);
 		}
 		this.modalRef.hide();
 	}

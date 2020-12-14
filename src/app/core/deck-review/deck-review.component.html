@@ -1,12 +1,13 @@
 <ng-container *ngIf="(deck$ | async) as deck">
 	<h2 class="text-center mb-4">Review: {{ deck.name }}</h2>
-	<div class="jumbotron">
-		<div *ngIf="!deck.reviewState.active; else active" class="d-flex justify-content-center">
+	<div class="jumbotron d-flex justify-content-center">
+		<div *ngIf="!deck.reviewState.active && !deck.reviewState.complete"
+				 class="d-flex justify-content-center">
 			<button type="button" class="btn btn-primary" (click)="deck.beginReview()">
 				Begin Review
 			</button>
 		</div>
-		<ng-template #active>
+		<div *ngIf="deck.reviewState.active && !deck.reviewState.complete">
 			<div class="d-flex justify-content-center">
 				<app-card-review [card]="deck.reviewState.activeCard"
 												 (review)="deck.reviewState.answered($event)">
@@ -17,7 +18,7 @@
 					End Review
 				</button>
 			</div>
-		</ng-template>
+		</div>
 		<div *ngIf="deck.reviewState.complete">
 			Review Complete!
 		</div>

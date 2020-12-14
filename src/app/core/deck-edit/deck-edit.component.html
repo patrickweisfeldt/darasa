@@ -17,9 +17,9 @@
 			<td>{{ card.front }}</td>
 			<td>{{ card.back }}</td>
 			<td class="d-none d-md-table-cell">{{ card.tags.join(', ') }}</td>
-			<td class="d-none d-lg-table-cell">{{ card.data.dateCreated.toLocaleDateString() }}</td>
-			<td class="d-none d-lg-table-cell">{{ card.data.nextReview.toLocaleDateString() }}</td>
-			<td class="d-none d-lg-table-cell">{{ card.data.lastReview.toLocaleDateString() }}</td>
+			<td class="d-none d-lg-table-cell">{{ card.dateCreated.toLocaleDateString() }}</td>
+			<td class="d-none d-lg-table-cell">{{ card.nextReview.toLocaleDateString() }}</td>
+			<td class="d-none d-lg-table-cell">{{ card.lastReview.toLocaleDateString() }}</td>
 			<td>
 				<button type="button" class="btn btn-secondary" (click)="openEditCardModal(card)">Details</button>
 			</td>

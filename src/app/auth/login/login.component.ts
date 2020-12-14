@@ -17,8 +17,8 @@ export class LoginComponent {
 		password: new FormControl('', Validators.required)
 	});
 
-	login(): void {
-		this.auth.login(this.loginForm.value);
+	signIn(): void {
+		this.auth.signIn(this.loginForm.value);
 	}
 
 }

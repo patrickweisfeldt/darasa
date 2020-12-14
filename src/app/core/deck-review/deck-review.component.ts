@@ -21,7 +21,7 @@ export class DeckReviewComponent implements OnInit {
 	deck$: Observable<Deck>;
 
 	ngOnInit(): void {
-		this.deck$ = this.route.data.pipe( pluck('deck') );
+		this.deck$ = this.route.parent.data.pipe( pluck('deck') );
 	}
 
 }

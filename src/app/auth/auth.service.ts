@@ -18,7 +18,9 @@ export class AuthService {
 		private db: AngularFirestore,
 		private fireAuth: AngularFireAuth,
 		private router: Router
-	) { }
+	) {
+		this.user$ = this.fireAuth.authState;
+	}
 
 	get loggedIn(): Promise<boolean> {
 		return this.user$.pipe( first(), map(user => !!user) ).toPromise();
@@ -30,13 +32,13 @@ export class AuthService {
 		this.fireAuth.createUserWithEmailAndPassword(formData.email, formData.password)
 			.then(user => {
 				this.db.collection('users').doc(user.user.uid).set({});
-				this.router.navigate(['/campaigns']);
+				this.router.navigate(['/dashboard']);
 			});
 	}
 
 	signIn(formData: any): void {
 		this.fireAuth.signInWithEmailAndPassword(formData.email, formData.password)
-			.then(() => this.router.navigate(['/campaigns']));
+			.then(() => this.router.navigate(['/dashboard']));
 	}
 
 	signOut(): void {

@@ -8,7 +8,6 @@ import { CoreRoutingModule } from './core-routing.module';
 import { CardAddComponent } from './card-add/card-add.component';
 import { CardEditComponent } from './card-edit/card-edit.component';
 import { CardReviewComponent } from './card-review/card-review.component';
-import { CoreComponent } from './core/core.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DeckComponent } from './deck/deck.component';
 import { DeckAddComponent } from './deck-add/deck-add.component';
@@ -23,7 +22,6 @@ import { DeckViewComponent } from './deck-view/deck-view.component';
 		CardAddComponent,
 		CardEditComponent,
 		CardReviewComponent,
-		CoreComponent,
 		DashboardComponent,
 		DeckComponent,
 		DeckAddComponent,

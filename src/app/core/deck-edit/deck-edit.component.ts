@@ -26,12 +26,8 @@ export class DeckEditComponent implements OnInit {
 
 	modalRef: BsModalRef;
 
-	delete(card: Card): void {
-		card.deleteFromDB();
-	}
-
 	ngOnInit(): void {
-		this.deck$ = this.route.data.pipe( pluck('deck') );
+		this.deck$ = this.route.parent.data.pipe( pluck('deck') );
 	}
 
 	openEditCardModal(card: Card): void {
@@ -43,11 +39,14 @@ export class DeckEditComponent implements OnInit {
 			}
 		};
 		this.modalRef = this.modal.show(CardEditComponent, { initialState });
-		this.modalRef.content.event.subscribe((data: CardInterface) => {
+		this.modalRef.content.cardEdit.subscribe((data: CardInterface) => {
 			card.front = data.front;
 			card.back  = data.back;
 			card.tags  = data.tags;
 			card.updateDB();
+		});
+		this.modalRef.content.delete.subscribe(() => {
+			card.deleteFromDB();
 		});
 	}
 

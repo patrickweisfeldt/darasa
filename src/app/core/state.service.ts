@@ -23,7 +23,7 @@ export class StateService {
 				this.deckCollection = this.db.doc(`users/${user.uid}`).collection<DeckInterface>('decks');
 				this.deckCollection.valueChanges({ idField: 'id' }).pipe(
 					map(data => data.map(deck => {
-						return new Deck({ ...deck, firestoreDocument: this.db.doc(deck.id) });
+						return new Deck({ ...deck, firestoreDocument: this.deckCollection.doc(deck.id) });
 					}))
 				).subscribe((decks: Deck[]) => this.decks = decks);
 			}

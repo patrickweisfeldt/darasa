@@ -2,15 +2,15 @@ import { Card } from './card';
 
 export class ReviewState {
 
+	constructor(config: ReviewStateConfig = {}) {
+		this.active = config.active || false;
+		this.cards = config.cards || null;
+		this.complete = false;
+	}
+
 	active: boolean;
 	cards: Card[];
 	complete: boolean;
-
-	constructor(config: ReviewStateConfig) {
-		this.active = config.active || false;
-		this.cards = config.cards;
-		this.complete = false;
-	}
 
 	get activeCard(): Card {
 		return this.cards[0];
@@ -25,10 +25,15 @@ export class ReviewState {
 		}
 	}
 
+	beginReview(cards: Card[]): void {
+		this.active = true;
+		this.cards = cards;
+	}
+
 }
 
 export interface ReviewStateConfig {
 	active?: boolean;
-	cards: Card[];
+	cards?: Card[];
 	complete?: boolean;
 }

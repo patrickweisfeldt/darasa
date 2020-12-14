@@ -1,14 +1,27 @@
 <ng-container *ngIf="deck$ | async as deck">
-	<div>Deck: {{ deck.name }}</div>
-	<div class="btn-group d-flex justify-content-around">
-		<button type="button" class="btn btn-primary" routerLink="review">
-			Review
+	<h2 class="text-center mb-4">Deck: {{ deck.name }}</h2>
+	<div class="row my-4">
+		<button type="button" routerLink="review"
+						class="btn btn-primary col-8 offset-2 col-sm-6 offset-sm-3 col-md-4 offset-md-4 col-lg-2 offset-lg-5">
+			Review Deck
 		</button>
-		<button type="button" class="btn btn-primary" (click)="openNewCardModal()">
+	</div>
+	<div class="row my-4">
+		<button type="button" (click)="openNewCardModal(deck)"
+						class="btn btn-primary col-8 offset-2 col-sm-6 offset-sm-3 col-md-4 offset-md-4 col-lg-2 offset-lg-5">
 			Add Cards
 		</button>
-		<button type="button" class="btn btn-primary" routerLink="edit">
+	</div>
+	<div class="row my-4">
+		<button type="button" routerLink="edit"
+						class="btn btn-primary col-8 offset-2 col-sm-6 offset-sm-3 col-md-4 offset-md-4 col-lg-2 offset-lg-5">
 			Edit Cards
+		</button>
+	</div>
+	<div class="row my-4">
+		<button type="button" (click)="openDeleteDeckModal(deck)"
+						class="btn btn-primary col-8 offset-2 col-sm-6 offset-sm-3 col-md-4 offset-md-4 col-lg-2 offset-lg-5">
+			Delete Deck
 		</button>
 	</div>
 </ng-container>
