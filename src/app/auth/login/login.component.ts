@@ -69,7 +69,7 @@ export class LoginComponent implements OnDestroy, OnInit {
 	}
 
 	ngOnInit(): void {
-		this.subscription = this.auth.authErrors$.subscribe(error => {
+		this.subscription.add(this.auth.authErrors$.subscribe(error => {
 			let type: string;
 			switch (error.code) {
 				case 'auth/user-not-found':
@@ -82,7 +82,7 @@ export class LoginComponent implements OnDestroy, OnInit {
 			this.authErrors = { type, error };
 			this.email.updateValueAndValidity();
 			this.password.updateValueAndValidity();
-		});
+		}));
 	}
 
 	signIn(): void {
