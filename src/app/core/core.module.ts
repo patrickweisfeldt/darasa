@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 
@@ -34,7 +35,8 @@ import { DeckViewComponent } from './deck-view/deck-view.component';
 		CommonModule,
 		CoreRoutingModule,
 		ModalModule.forRoot(),
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		RouterModule
 	],
 	entryComponents: [DeckAddComponent]
 })

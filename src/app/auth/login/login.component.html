@@ -4,21 +4,39 @@
 			<div class="form-group row">
 				<label for="email" class="col-sm-3 col-form-label">Email:</label>
 				<div class="col-sm-9">
-					<input id="email" class="form-control" type="email"
-								placeholder="Email" formControlName="email">
+					<input id="email" class="form-control" type="email" #emailInput
+								 placeholder="Email" formControlName="email"
+								 [class.is-valid]="email.touched && email.valid"
+								 [class.is-invalid]="email.touched && email.dirty && email.invalid"
+								 (keyup)="clearAuthErrors('email')">
+					<div *ngIf="email.errors?.email" class="invalid-feedback">
+						Please enter a valid email address
+					</div>
+					<div *ngIf="email.errors?.emailNotFound" class="invalid-feedback">
+						Sorry, there is no account for that email address
+					</div>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="password" class="col-sm-3 col-form-label">Password:</label>
 				<div class="col-sm-9">
-					<input id="password" class="form-control" type="password" 
-								placeholder="Password" formControlName="password">
+					<input id="password" class="form-control" type="password" #passwordInput
+								 placeholder="Password" formControlName="password"
+								 [class.is-valid]="password.touched && password.valid"
+								 [class.is-invalid]="password.touched && password.dirty && password.invalid"
+								 (keyup)="clearAuthErrors('password')">
+					<div *ngIf="password.errors?.wrongPassword" class="invalid-feedback">
+						Wrong password
+					</div>
 				</div>
 			</div>
-			<button type="submit" class="btn btn-primary btn-block"
+			<button type="submit" class="btn btn-primary btn-block my-4" #submitButton
 							[disabled]="!loginForm.valid">
 				Sign In
 			</button>
+			<div class="text-center">
+				Need an account? <a href="" routerLink="/register">Register</a>
+			</div>
 		</form>
 	</div>
 </div>

@@ -24,7 +24,7 @@
 								<ul class="dropdown-menu" id="navbar-dropdown" role="menu"
 										aria-labelledby="navbar-dropdown-toggle" *dropdownMenu>
 									<li *ngFor="let deck of decks" role="menuitem">
-										<a class="dropdown-item" [routerLink]="['/deck', deck.name]">
+										<a class="dropdown-item" [routerLink]="['/', 'deck', deck.name]">
 											{{ deck.name }}
 										</a>
 									</li>

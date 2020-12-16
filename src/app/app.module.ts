@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -46,7 +47,8 @@ const firebaseConfig = {
 		BsDropdownModule.forRoot(),
 		CollapseModule.forRoot(),
 		CoreModule,
-		HttpClientModule
+		HttpClientModule,
+		RouterModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

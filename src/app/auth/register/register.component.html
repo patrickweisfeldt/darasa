@@ -5,34 +5,76 @@
 				<label for="firstName" class="col-sm-3 col-form-label">First Name:</label>
 				<div class="col-sm-9">
 					<input id="firstName" class="form-control" type="text"
-								placeholder="First Name" formControlName="firstName">
+								 placeholder="First Name" formControlName="firstName"
+								 [class.is-valid]="firstName.touched && firstName.valid"
+								 [class.is-invalid]="firstName.touched && firstName.dirty && firstName.invalid">
+					<div *ngIf="firstName.errors?.required" class="invalid-feedback">
+						Required
+					</div>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="lastName" class="col-sm-3 col-form-label">Last Name:</label>
 				<div class="col-sm-9">
 					<input id="lastName" class="form-control" type="text"
-								placeholder="Last Name" formControlName="lastName">
+								 placeholder="Last Name" formControlName="lastName"
+								 [class.is-valid]="lastName.touched && lastName.valid"
+								 [class.is-invalid]="lastName.touched && lastName.dirty && lastName.invalid">
+					<div *ngIf="lastName.errors?.required" class="invalid-feedback">
+						Required
+					</div>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="email" class="col-sm-3 col-form-label">Email:</label>
 				<div class="col-sm-9">
 					<input id="email" class="form-control" type="email"
-								placeholder="Email" formControlName="email">
+								 placeholder="Email" formControlName="email"
+								 [class.is-valid]="email.touched && email.valid"
+								 [class.is-invalid]="email.touched && email.dirty && email.invalid">
+					<div *ngIf="email.errors?.email" class="invalid-feedback">
+						Please enter a valid email address
+					</div>
+					<div *ngIf="email.errors?.emailTaken" class="invalid-feedback">
+						That email address is taken, please try another
+					</div>
+					<div *ngIf="email.errors?.required" class="invalid-feedback">
+						Required
+					</div>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="password" class="col-sm-3 col-form-label">Password:</label>
 				<div class="col-sm-9">
 					<input id="password" class="form-control" type="password" 
-								placeholder="Password" formControlName="password">
+								 placeholder="Password" formControlName="password"
+								 [class.is-valid]="password.touched && password.valid"
+								 [class.is-invalid]="password.touched && password.dirty && password.invalid">
+					<div *ngIf="password.errors?.minlength as error" class="invalid-feedback">
+						Password must be at least {{ error.requiredLength }} characters long
+					</div>
+					<div *ngIf="password.errors?.required" class="invalid-feedback">
+						Required
+					</div>
 				</div>
 			</div>
-			<button type="submit" class="btn btn-primary btn-block"
+			<div class="form-group row">
+				<label for="password" class="col-sm-3 col-form-label">Confirm Password:</label>
+				<div class="col-sm-9">
+					<input id="confirm-password" class="form-control" type="password" 
+								 placeholder="Confirm Password" formControlName="confirmPassword"
+								 [class.is-valid]="confirmPassword.dirty && confirmPassword.valid && password.valid && !registerForm.errors?.passwordMatch"
+								 [class.is-invalid]="confirmPassword.dirty && (confirmPassword.invalid || password.invalid || registerForm.errors?.passwordMatch)">
+					<div *ngIf="registerForm.errors?.passwordMatch" class="invalid-feedback">
+						Passwords must match
+					</div>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-primary btn-block my-4"
 							[disabled]="!registerForm.valid">
 				Register
 			</button>
+			<div class="text-center">Already registered? <a href="" routerLink="/login">Sign In</a></div>
 		</form>
 	</div>
 </div>
