@@ -20,7 +20,11 @@
 			</div>
 		</div>
 		<div *ngIf="deck.reviewState.complete">
-			Review Complete!
+			<div class="my-4 text-center">Review Complete!</div>
+			<div class="my-4">
+				<button class="btn btn-primary mx-2" routerLink="/dashboard">Dashboard</button>
+				<button class="btn btn-primary mx-2" [routerLink]="['/deck', deck.name]">{{ deck.name }}</button>
+			</div>
 		</div>
 	</div>
 </ng-container>
