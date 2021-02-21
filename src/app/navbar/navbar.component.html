@@ -10,7 +10,7 @@
 			<ul class="navbar-nav">
 				<ng-container *ngIf="(user$ | async); else isLoggedOut">
 					<li class="nav-item">
-						<a class="nav-link" routerLink="/dashboard" routerLinkActive="active">
+						<a class="nav-link" routerLink="/dashboard" routerLinkActive="active" (click)="toggleCollapse()">
 							Dashboard
 						</a>
 					</li>
@@ -24,7 +24,7 @@
 								<ul class="dropdown-menu" id="navbar-dropdown" role="menu"
 										aria-labelledby="navbar-dropdown-toggle" *dropdownMenu>
 									<li *ngFor="let deck of decks" role="menuitem">
-										<a class="dropdown-item" [routerLink]="['/', 'deck', deck.name]">
+										<a class="dropdown-item" [routerLink]="['/', 'deck', deck.name]" (click)="toggleCollapse()">
 											{{ deck.name }}
 										</a>
 									</li>
@@ -33,19 +33,19 @@
 						</li>
 					</ng-container>
 					<li class="nav-item">
-						<a class="nav-link" (click)="signOut()">
+						<a class="nav-link" (click)="signOut(); toggleCollapse()">
 							Sign Out
 						</a>
 					</li>
 				</ng-container>
 				<ng-template #isLoggedOut>
 					<li class="nav-item">
-						<a class="nav-link" routerLink="/login" routerLinkActive="active">
+						<a class="nav-link" routerLink="/login" routerLinkActive="active" (click)="toggleCollapse()">
 							Sign In
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" routerLink="/register" routerLinkActive="active">
+						<a class="nav-link" routerLink="/register" routerLinkActive="active" (click)="toggleCollapse()">
 							Register
 						</a>
 					</li>
