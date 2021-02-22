@@ -15,6 +15,7 @@ export class Card extends DateConverter {
 		this.nextReview = data.nextReview ? this._toDate(data.nextReview) : new Date();
 		this.sessionReviews = data.sessionReviews || 0;
 		this.totalReviews = data.totalReviews || 0;
+		this.lastReviewIncrement = data.lastReviewIncrement || 0;
 		this.firestoreDocRef = data.firestoreDocRef || null;
 	}
 
@@ -26,27 +27,27 @@ export class Card extends DateConverter {
 	nextReview: Date;
 	sessionReviews: number;
 	totalReviews: number;
+	lastReviewIncrement: number;
 	firestoreDocRef: DocumentReference;
 
 	answered(correct: boolean): void {
+		this.lastReview = new Date();
 		this.totalReviews++;
 		if (correct) {
 			this.sessionReviews++;
-			this.lastReview = new Date();
 			this.calculateNextReview();
 			this.updateDB();
 		} else {
-			this.lastReview = new Date();
+			this.lastReviewIncrement = 0;
 		}
 	}
 
 	calculateNextReview(): void {
 		const nextReview: Date = new Date();
-		const difference: number = nextReview.getTime() - this.lastReview.getTime();
-		const msPerDay: number = 1000 * 60 * 60 * 24;
-		const increment: number = Math.round(difference / msPerDay) * 2 || 1;
+		const increment: number = this.lastReviewIncrement * 2 || 1;
 		nextReview.setDate(nextReview.getDate() + increment);
 		this.nextReview = nextReview;
+		this.lastReviewIncrement = increment;
 	}
 
 	deleteFromDB(): void {
@@ -74,5 +75,6 @@ export interface CardInterface {
 	nextReview?: Date | firestore.Timestamp;
 	sessionReviews?: number;
 	totalReviews?: number;
+	lastReviewIncrement?: number;
 	firestoreDocRef?: DocumentReference;
 }
