@@ -47,7 +47,8 @@ export class DashboardComponent implements OnInit {
 	}
 
 	openNewDeckModal(): void {
-		this.modalRef = this.modal.show(DeckAddComponent);
+		const initialState: any = { names: this.state.getDecks().map(deck => deck.name) };
+		this.modalRef = this.modal.show(DeckAddComponent, { initialState, ignoreBackdropClick: true });
 		this.modalRef.content.event.subscribe((name: string) => {
 			const deck: Deck = new Deck({ name });
 			this.state.addDeck(deck.toPlainObject());

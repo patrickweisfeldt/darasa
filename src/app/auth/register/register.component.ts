@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors,
-	Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 
 import { Observable, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';

@@ -48,4 +48,8 @@ export class StateService {
 		this.deckCollection.add(deck);
 	}
 
+	getDecks(): Deck[] {
+		return this.decks;
+	}
+
 }
